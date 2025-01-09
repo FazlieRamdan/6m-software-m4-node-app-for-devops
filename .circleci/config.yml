@@ -34,7 +34,7 @@ jobs:
     - checkout
     - run:
         name: Heroku Container Push
-        command:
+        command: |
           heroku container:login
           heroku stack:set container -a fazlieramdan-su-devops
           heroku container:push web -a fazlieramdan-su-devops
