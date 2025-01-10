@@ -40,16 +40,16 @@ jobs:
           heroku container:push web -a fazlieramdan-su-devops
           heroku container:release web -a fazlieramdan-su-devops
 
-    build-and-push:
-      executor: docker/docker
-      steps:
-        - setup_remote_docker
-        - checkout
-        - docker/check
-        - docker/build:
-            image: fazlieramdan/education-space
-        - docker/push:
-            image: fazlieramdan/education-space      
+  build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: fazlieramdan/education-space
+      - docker/push:
+          image: fazlieramdan/education-space      
 
 
 workflows:
