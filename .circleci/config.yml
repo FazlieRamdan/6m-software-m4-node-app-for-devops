@@ -62,4 +62,7 @@ workflows:
     - deploy:
         requires:
         - test
+    - build-and-push:
+        requires:
+        - deploy
         
