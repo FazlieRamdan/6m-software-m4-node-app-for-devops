@@ -4,6 +4,7 @@ orbs:
   node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
   heroku: circleci/heroku@2.0.0
+  snyk: snyk/snyk@1.5.0
 jobs:
   build:
     docker:
@@ -39,6 +40,19 @@ jobs:
           heroku stack:set container -a fazlieramdan-su-devops
           heroku container:push web -a fazlieramdan-su-devops
           heroku container:release web -a fazlieramdan-su-devops
+  scan:
+    docker:
+    - image: cimg/node:16.10
+    environment:
+      IMAGE_NAME: fazlieramdan/education-space
+    steps:
+    - checkout
+    - setup_remote_docker
+    - docker/check
+    - run: docker build -t $IMAGE_NAME .
+    - synk/scan:
+        docker-image-name: $IMAGE_NAME
+
   build-and-push:
     executor: docker/docker
     steps:
@@ -63,7 +77,11 @@ workflows:
             - build 
           filters:
             branches:
-              only: main     
+              only: main   
+
+      - scan:
+        requires:
+          - build  
       - build-and-push:  
           filters:
             tags:
