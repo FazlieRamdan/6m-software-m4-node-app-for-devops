@@ -72,20 +72,17 @@ workflows:
           filters:
             branches:
               only: main
-
-
-      - scan:
-        requires:
-          - build  
-
       - test:
           requires:
             - build 
             - scan
           filters:
             branches:
-              only: main 
-                
+              only: main   
+
+      - scan:
+          requires:
+            - build  
       - build-and-push:  
           filters:
             tags:
