@@ -65,36 +65,46 @@ jobs:
           image: fazlieramdan/education-space      
 
 
+# workflows:
+#   simple_workflow:
+#     jobs:
+#       - build:
+#           filters:
+#             branches:
+#               only: main
+#       - test:
+#           requires:
+#             - build 
+#             - scan
+#           filters:
+#             branches:
+#               only: main   
+#       - build-and-push:  
+#           filters:
+#             tags:
+#               only: /^v.*/  
+#             branches: 
+#               ignore: /.*/
+#       - deploy:
+#           requires:
+#             - build-and-push
+#           filters:
+#             tags:
+#               only: /^v.*/
+#             branches: 
+#               ignore: /.*/
+
 workflows:
   simple_workflow:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: main
-      - test:
-          requires:
-            - build 
-            - scan
-          filters:
-            branches:
-              only: main   
-
+      - build
+      # - deploy:
+      #     requires:
+      #       - test
       - scan:
           requires:
-            - build  
-      - build-and-push:  
-          filters:
-            tags:
-              only: /^v.*/  
-            branches: 
-              ignore: /.*/
-      - deploy:
-          requires:
-            - build-and-push
-          filters:
-            tags:
-              only: /^v.*/
-            branches: 
-              ignore: /.*/
+            - build
+      - test:
+          requires: 
+            - scan
         
