@@ -53,16 +53,16 @@ jobs:
     - synk/scan:
         docker-image-name: $IMAGE_NAME
 
-  build-and-push:
-    executor: docker/docker
-    steps:
-      - setup_remote_docker
-      - checkout
-      - docker/check
-      - docker/build:
-          image: fazlieramdan/education-space
-      - docker/push:
-          image: fazlieramdan/education-space      
+  # build-and-push:
+  #   executor: docker/docker
+  #   steps:
+  #     - setup_remote_docker
+  #     - checkout
+  #     - docker/check
+  #     - docker/build:
+  #         image: fazlieramdan/education-space
+  #     - docker/push:
+  #         image: fazlieramdan/education-space      
 
 
 # workflows:
